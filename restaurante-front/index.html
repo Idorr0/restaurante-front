@@ -7,7 +7,25 @@
     <title>Vite App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <h1 class="text-center text-primary my-4">Lista de Restaurantes</h1>
+
+<ul id="restaurantes-list" class="list-group mb-4"></ul>
+
+<form id="form" class="container">
+  <div class="mb-3">
+    <input class="form-control" type="text" id="nome" placeholder="Nome" required />
+  </div>
+  <div class="mb-3">
+    <input class="form-control" type="text" id="cnpj" placeholder="CNPJ" required />
+  </div>
+  <div class="mb-3">
+    <input class="form-control" type="text" id="categoria" placeholder="Categoria" required />
+  </div>
+  <div class="mb-3">
+    <input class="form-control" type="text" id="endereco" placeholder="Endereço" required />
+  </div>
+  <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
