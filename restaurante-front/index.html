@@ -49,6 +49,11 @@
       <button type="submit" class="btn btn-primary">Adicionar</button>
     </form>
 
+    <h1 class="text-center text-primary my-4">Lista de Pedidos</h1>
+    <div id="pedidos-container" class="mb-5">
+      <ul id="pedidos-list" class="list-group"></ul>
+    </div>
+
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('form');
@@ -202,6 +207,37 @@
             console.error('Erro ao adicionar item ao cardápio:', erro);
           }
         });
+
+
+        async function carregarPedidos() {
+          try {
+            const resposta = await fetch(`${BASE_URL}/restaurante/api/pedidos/todos`);
+            if (!resposta.ok) throw new Error('Erro ao carregar pedidos');
+
+            const pedidos = await resposta.json();
+            const listaPedidos = document.getElementById('pedidos-list');
+            listaPedidos.innerHTML = '';
+
+            pedidos.forEach(pedido => {
+              const li = document.createElement('li');
+              li.classList.add('list-group-item');
+
+              li.innerHTML = `
+                <strong>ID:</strong> ${pedido.id} <br>
+                <strong>Cliente:</strong> ${pedido.clienteNome} <br>
+                <strong>Itens:</strong> ${pedido.itens.map(i => i.nome).join(', ')} <br>
+                <strong>Total:</strong> R$ ${pedido.total.toFixed(2)}
+              `;
+
+            listaPedidos.appendChild(li);
+            });
+          } catch (erro) {
+            console.error('Erro ao buscar pedidos:', erro);
+          }
+        }
+
+// chama ao carregar
+        carregarPedidos();
 
         carregarRestaurantes();
       });
